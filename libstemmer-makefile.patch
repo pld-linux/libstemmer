@@ -1,0 +1,61 @@
+--- Makefile	2006-01-24 00:08:08.000000000 +0100
++++ Makefile.oden	2006-02-05 13:18:24.000000000 +0100
+@@ -1,9 +1,52 @@
+ include mkinc.mak
+-CFLAGS=-Iinclude
+-all: libstemmer.o stemwords
+-libstemmer.o: $(snowball_sources:.c=.o)
+-	$(AR) -cru $@ $^
+-stemwords: examples/stemwords.o libstemmer.o
+-	$(CC) -o $@ $^
++CFLAGS+=-Wall -Iinclude -fPIC -DPIC -D_REENTRANT
++CC=gcc
++bindir = /usr/bin
++libdir = /usr/lib
++includedir = /usr/include
++DESTDIR = 
++
++AR = ar
++RANLIB = ranlib
++LIBTOOL = libtool
++INSTALL = install -c
++LDFLAGS = 
++
++LT_CURRENT=0
++LT_REVISION=0
++LT_AGE=0
++
++LTOBJS:= $(snowball_sources:.c=.o)
++
++all: libstemmer.la stemwords
++
++libstemmer.la: $(LTOBJS)
++	$(LIBTOOL) --mode=link $(CC) $(CFLAGS) -rpath $(libdir) \
++	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) -o \
++	$@ $(LTOBJS)
++
++stemwords: examples/stemwords.o libstemmer.la
++	$(LIBTOOL) --mode=link $(CC) $(CFLAGS) -o $@ $(LDFLAGS) $^
++
++%.o: %.c
++	$(CC) -c $(CFLAGS) $< -o $@
++
++%.lo: %.c
++	$(LIBTOOL) --mode=compile $(CC) -c $(CFLAGS) $< -o $@
++
++install:
++	$(INSTALL) -d $(DESTDIR)$(bindir)
++	$(INSTALL) -d $(DESTDIR)$(libdir)
++	$(INSTALL) -d $(DESTDIR)$(includedir)/libstemmer
++	$(LIBTOOL) --mode=install $(INSTALL) libstemmer.la $(DESTDIR)$(libdir)
++	$(LIBTOOL) --mode=install $(INSTALL) -m 755 stemwords $(DESTDIR)$(bindir)
++	$(INSTALL) -m 644 libstemmer/modules.h $(DESTDIR)$(includedir)/libstemmer
++	$(INSTALL) -m 644 runtime/api.h $(DESTDIR)$(includedir)/libstemmer
++	$(INSTALL) -m 644 runtime/header.h $(DESTDIR)$(includedir)/libstemmer
++	$(INSTALL) -m 644 include/libstemmer.h $(DESTDIR)$(includedir)/libstemmer
++
+ clean:
++	rm -f *.o *.lo *.a *.la
++	rm -rf .libs
+ 	rm -f stemwords *.o src_c/*.o runtime/*.o libstemmer/*.o
++
