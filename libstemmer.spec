@@ -1,11 +1,11 @@
 Summary:	The C version of the libstemmer library
 Name:		libstemmer
-Version:	20080616
+Version:	20081124
 Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	http://snowball.tartarus.org/dist/%{name}_c.tgz
-# Source0-md5:	cffc043e1e1ad7fe4cf7beaa0198d147
+# Source0-md5:	190bca7fea9460a2213201fd875155ef
 Patch0:		%{name}-makefile.patch
 URL:		http://snowball.tartarus.org/
 BuildRequires:	libtool
@@ -79,17 +79,18 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README
-%attr(755,root,root) %{_libdir}/*.so.*
+%attr(755,root,root) %{_libdir}/libstemmer.so.*.*
+%attr(755,root,root) %ghost %{_libdir}/libstemmer.so.0
 
 %files devel
 %defattr(644,root,root,755)
 %{_includedir}/%{name}
-%{_libdir}/*.so
-%{_libdir}/*.la
+%{_libdir}/libstemmer.so
+%{_libdir}/libstemmer.la
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/lib*.a
+%{_libdir}/libstemmer.a
 
 %files utils
 %defattr(644,root,root,755)
