@@ -7,6 +7,8 @@ Group:		Libraries
 Source0:	http://snowball.tartarus.org/dist/%{name}_c.tgz
 # Source0-md5:	530e491060442013e2c39d34275e4bfd
 Patch0:		%{name}-makefile.patch
+Patch1:		libtool-tag.patch
+Patch2:		optflags.patch
 URL:		http://snowball.tartarus.org/
 BuildRequires:	libtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -57,11 +59,13 @@ Narzędzie stemwords korzystające z biblioteki libstemmer.
 %prep
 %setup -q -n %{name}_c
 %patch0 -p0
+%patch1 -p1
+%patch2 -p1
 
 %build
 %{__make} \
-	CFLAGS="%{rpmcflags} -Iinclude -fPIC" \
-	CC="%{__cc}"
+	CC="%{__cc}" \
+	OPTFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT

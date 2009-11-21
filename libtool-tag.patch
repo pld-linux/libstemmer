@@ -1,0 +1,33 @@
+--- libstemmer_c/Makefile~	2009-11-21 14:34:37.000000000 +0200
++++ libstemmer_c/Makefile	2009-11-21 14:35:39.761787074 +0200
+@@ -21,25 +21,25 @@
+ all: libstemmer.la stemwords
+ 
+ libstemmer.la: $(LTOBJS)
+-	$(LIBTOOL) --mode=link $(CC) $(CFLAGS) -rpath $(libdir) \
++	$(LIBTOOL) --tag=CC --mode=link $(CC) $(CFLAGS) -rpath $(libdir) \
+ 	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) -o \
+ 	$@ $(LTOBJS)
+ 
+ stemwords: examples/stemwords.o libstemmer.la
+-	$(LIBTOOL) --mode=link $(CC) $(CFLAGS) -o $@ $(LDFLAGS) $^
++	$(LIBTOOL) --tag=CC --mode=link $(CC) $(CFLAGS) -o $@ $(LDFLAGS) $^
+ 
+ %.o: %.c
+ 	$(CC) -c $(CFLAGS) $< -o $@
+ 
+ %.lo: %.c
+-	$(LIBTOOL) --mode=compile $(CC) -c $(CFLAGS) $< -o $@
++	$(LIBTOOL) --tag=CC --mode=compile $(CC) -c $(CFLAGS) $< -o $@
+ 
+ install:
+ 	$(INSTALL) -d $(DESTDIR)$(bindir)
+ 	$(INSTALL) -d $(DESTDIR)$(libdir)
+ 	$(INSTALL) -d $(DESTDIR)$(includedir)/libstemmer
+-	$(LIBTOOL) --mode=install $(INSTALL) libstemmer.la $(DESTDIR)$(libdir)
+-	$(LIBTOOL) --mode=install $(INSTALL) -m 755 stemwords $(DESTDIR)$(bindir)
++	$(LIBTOOL) --tag=CC --mode=install $(INSTALL) libstemmer.la $(DESTDIR)$(libdir)
++	$(LIBTOOL) --tag=CC --mode=install $(INSTALL) -m 755 stemwords $(DESTDIR)$(bindir)
+ 	$(INSTALL) -m 644 libstemmer/modules.h $(DESTDIR)$(includedir)/libstemmer
+ 	$(INSTALL) -m 644 runtime/api.h $(DESTDIR)$(includedir)/libstemmer
+ 	$(INSTALL) -m 644 runtime/header.h $(DESTDIR)$(includedir)/libstemmer
