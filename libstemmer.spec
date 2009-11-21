@@ -1,7 +1,7 @@
 Summary:	The C version of the libstemmer library
 Name:		libstemmer
 Version:	20090915
-Release:	1
+Release:	2
 License:	BSD
 Group:		Libraries
 Source0:	http://snowball.tartarus.org/dist/%{name}_c.tgz
@@ -15,9 +15,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Snowball is a small string processing language designed for creating
-stemming algorithms for use in Information Retrieval. This site
-describes Snowball, and presents several useful stemmers which have
-been implemented using it.
+stemming algorithms for use in Information Retrieval.
 
 This package containst the C version of the libstemmer library.
 
