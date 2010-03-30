@@ -55,7 +55,8 @@ The stemwords utility using the libstemmer library
 Narzędzie stemwords korzystające z biblioteki libstemmer.
 
 %prep
-%setup -q -n %{name}_c
+%setup -qc
+mv %{name}_c/* .
 %patch0 -p0
 %patch1 -p1
 %patch2 -p1
