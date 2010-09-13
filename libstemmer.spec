@@ -46,7 +46,7 @@ Statyczna biblioteka libstemmer.
 %package utils
 Summary:	The stemwords utility using the libstemmer library
 Summary(pl.UTF-8):	Narzędzie stemwords korzystające z biblioteki libstemmer
-Group:		Application/Text
+Group:		Applications/Text
 
 %description utils
 The stemwords utility using the libstemmer library
