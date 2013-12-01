@@ -1,11 +1,11 @@
 Summary:	The C version of the libstemmer library
 Name:		libstemmer
-Version:	20090915
-Release:	2
+Version:	20130428
+Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	http://snowball.tartarus.org/dist/%{name}_c.tgz
-# Source0-md5:	530e491060442013e2c39d34275e4bfd
+# Source0-md5:	78e9d4bbb878191e3de6a7355711fa43
 Patch0:		%{name}-makefile.patch
 Patch1:		libtool-tag.patch
 Patch2:		optflags.patch
