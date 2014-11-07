@@ -1,4 +1,5 @@
 Summary:	The C version of the libstemmer library
+Summary(pl.UTF-8):	Wersja C biblioteki libstemmer
 Name:		libstemmer
 Version:	20130428
 Release:	1
@@ -18,6 +19,11 @@ Snowball is a small string processing language designed for creating
 stemming algorithms for use in Information Retrieval.
 
 This package containst the C version of the libstemmer library.
+
+%description -l pl.UTF-8
+Snowball to niewielki język przetwarzania łańcuchów znaków,
+zaprojektowany do tworzenia algorytmów określających tematy wyrazów,
+wykorzystywanych przy wyszukiwaniu informacji.
 
 %package devel
 Summary:	Header files for libstemmer library
@@ -73,23 +79,23 @@ rm -rf $RPM_BUILD_ROOT
 	libdir=%{_libdir} \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%post	-p /sbin/ldconfig
-%postun	-p /sbin/ldconfig
-
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
 %doc README
-%attr(755,root,root) %{_libdir}/libstemmer.so.*.*
+%attr(755,root,root) %{_libdir}/libstemmer.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libstemmer.so.0
 
 %files devel
 %defattr(644,root,root,755)
-%{_includedir}/%{name}
-%{_libdir}/libstemmer.so
+%attr(755,root,root) %{_libdir}/libstemmer.so
 %{_libdir}/libstemmer.la
+%{_includedir}/%{name}
 
 %files static
 %defattr(644,root,root,755)
