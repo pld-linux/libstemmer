@@ -2,7 +2,7 @@ Summary:	The C version of the libstemmer library
 Summary(pl.UTF-8):	Wersja C biblioteki libstemmer
 Name:		libstemmer
 Version:	20141109
-Release:	1
+Release:	2
 License:	BSD
 Group:		Libraries
 Source0:	http://snowball.tartarus.org/dist/%{name}_c.tgz
