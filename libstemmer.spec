@@ -18,7 +18,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Snowball is a small string processing language designed for creating
 stemming algorithms for use in Information Retrieval.
 
-This package containst the C version of the libstemmer library.
+This package contains the C version of the libstemmer library.
 
 %description -l pl.UTF-8
 Snowball to niewielki język przetwarzania łańcuchów znaków,
