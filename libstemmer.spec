@@ -10,7 +10,7 @@ Source0:	http://snowball.tartarus.org/dist/%{name}_c.tgz
 Patch0:		%{name}-makefile.patch
 Patch1:		libtool-tag.patch
 Patch2:		optflags.patch
-URL:		http://snowball.tartarus.org/
+URL:		http://snowballstem.org/
 BuildRequires:	libtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
