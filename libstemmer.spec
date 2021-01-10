@@ -1,15 +1,14 @@
 Summary:	The C version of the libstemmer library
 Summary(pl.UTF-8):	Wersja C biblioteki libstemmer
 Name:		libstemmer
-Version:	20141109
-Release:	3
+Version:	20191002
+Release:	1
 License:	BSD
 Group:		Libraries
-Source0:	http://snowball.tartarus.org/dist/%{name}_c.tgz
-# Source0-md5:	6f32f8f81cd6fa0150333ab540af5e27
+#Source0Download: https://snowballstem.org/download.html
+Source0:	https://snowballstem.org/dist/%{name}_c.tgz
+# Source0-md5:	f8288a861db7c97dc4750020c7c7aa6f
 Patch0:		%{name}-makefile.patch
-Patch1:		libtool-tag.patch
-Patch2:		optflags.patch
 URL:		http://snowballstem.org/
 BuildRequires:	libtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -62,16 +61,16 @@ Narzędzie stemwords korzystające z biblioteki libstemmer.
 
 %prep
 %setup -qc
-mv %{name}_c/* .
-%patch0 -p0
-%patch1 -p1
-%patch2 -p1
+%{__mv} %{name}_c/* .
+%patch0 -p1
 
 %build
+CFLAGS="%{rpmcflags}" \
+CPPFLAGS="%{rpmcppflags}" \
+LDFLAGS="%{rpmldflags}" \
 %{__make} \
 	CC="%{__cc}" \
-	libdir=%{_libdir} \
-	OPTFLAGS="%{rpmcflags}"
+	libdir=%{_libdir}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -88,7 +87,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc README
+%doc COPYING NEWS README
 %attr(755,root,root) %{_libdir}/libstemmer.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libstemmer.so.0
 
@@ -96,7 +95,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libstemmer.so
 %{_libdir}/libstemmer.la
-%{_includedir}/%{name}
+%{_includedir}/libstemmer
 
 %files static
 %defattr(644,root,root,755)
