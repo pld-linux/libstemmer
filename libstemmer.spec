@@ -1,16 +1,17 @@
 Summary:	The C version of the libstemmer library
 Summary(pl.UTF-8):	Wersja C biblioteki libstemmer
 Name:		libstemmer
-Version:	20191002
+Version:	2.2.0
 Release:	1
+Epoch:		1
 License:	BSD
 Group:		Libraries
 #Source0Download: https://snowballstem.org/download.html
-Source0:	https://snowballstem.org/dist/%{name}_c.tgz
-# Source0-md5:	f8288a861db7c97dc4750020c7c7aa6f
+Source0:	https://snowballstem.org/dist/%{name}_c-%{version}.tar.gz
+# Source0-md5:	a0add7c0ebdd8d18872a31199bf37f4d
 Patch0:		%{name}-makefile.patch
-URL:		http://snowballstem.org/
-BuildRequires:	libtool
+URL:		https://snowballstem.org/
+BuildRequires:	libtool >= 2:1.5
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -28,7 +29,7 @@ wykorzystywanych przy wyszukiwaniu informacji.
 Summary:	Header files for libstemmer library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libstemmer
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description devel
 Header files for libstemmer library.
@@ -40,7 +41,7 @@ Pliki nagłówkowe biblioteki libstemmer.
 Summary:	Static libstemmer library
 Summary(pl.UTF-8):	Statyczna biblioteka libstemmer
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 
 %description static
 Static libstemmer library.
@@ -60,8 +61,7 @@ The stemwords utility using the libstemmer library
 Narzędzie stemwords korzystające z biblioteki libstemmer.
 
 %prep
-%setup -qc
-%{__mv} %{name}_c/* .
+%setup -q -n %{name}_c-%{version}
 %patch0 -p1
 
 %build

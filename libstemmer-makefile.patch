@@ -1,17 +1,18 @@
---- libstemmer-20191002/Makefile.orig	2021-01-10 19:00:35.687893830 +0100
-+++ libstemmer-20191002/Makefile	2021-01-10 19:21:01.394586941 +0100
-@@ -1,10 +1,46 @@
- include mkinc.mak
+--- libstemmer_c-2.2.0/Makefile.orig	2024-09-14 12:50:10.978761983 +0200
++++ libstemmer_c-2.2.0/Makefile	2024-09-14 12:55:31.260360202 +0200
+@@ -2,12 +2,47 @@ include mkinc.mak
+ ifeq ($(OS),Windows_NT)
+ EXEEXT=.exe
+ endif
 -CFLAGS=-O2
--CPPFLAGS=-Iinclude
--all: libstemmer.o stemwords
--libstemmer.o: $(snowball_sources:.c=.o)
--	$(AR) -cru $@ $^
--stemwords: examples/stemwords.o libstemmer.o
--	$(CC) $(CFLAGS) -o $@ $^
 +CFLAGS?=-O2
 +CFLAGS+=-D_REENTRANT
-+CPPFLAGS+=-Iinclude
+ CPPFLAGS=-Iinclude
+-all: libstemmer.a stemwords$(EXEEXT)
+-libstemmer.a: $(snowball_sources:.c=.o)
+-	$(AR) -cru $@ $^
+-stemwords$(EXEEXT): examples/stemwords.o libstemmer.a
+-	$(CC) $(CFLAGS) -o $@ $^
 +
 +bindir=/usr/bin
 +libdir=/usr/lib
@@ -22,19 +23,19 @@
 +INSTALL=install -c
 +
 +LT_CURRENT=1
-+LT_REVISION=0
++LT_REVISION=2
 +LT_AGE=1
 +
 +LTOBJS:= $(snowball_sources:.c=.lo)
 +
-+all: libstemmer.la stemwords
++all: libstemmer.la stemwords$(EXEEXT)
 +
 +libstemmer.la: $(LTOBJS)
 +	$(LIBTOOL) --tag=CC --mode=link $(CC) $(CFLAGS) $(CPPFLAGS) -rpath $(libdir) \
 +	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) -o \
 +	$@ $(LTOBJS)
 +
-+stemwords: examples/stemwords.o libstemmer.la
++stemwords$(EXEEXT): examples/stemwords.o libstemmer.la
 +	$(LIBTOOL) --tag=CC --mode=link $(CC) $(CFLAGS) -o $@ $(LDFLAGS) $^
 +
 +%.lo: %.c
@@ -51,6 +52,6 @@
 +	$(INSTALL) -m 644 include/libstemmer.h $(DESTDIR)$(includedir)/libstemmer
 +
  clean:
-+	rm -f *.o *.lo *.a *.la
+-	rm -f stemwords$(EXEEXT) libstemmer.a *.o src_c/*.o examples/*.o runtime/*.o libstemmer/*.o
++	rm -f stemwords$(EXEEXT) libstemmer.la *.o *.lo src_c/*.o examples/*.o runtime/*.o libstemmer/*.o
 +	rm -rf .libs
- 	rm -f stemwords *.o src_c/*.o examples/*.o runtime/*.o libstemmer/*.o
