@@ -62,7 +62,7 @@ Narzędzie stemwords korzystające z biblioteki libstemmer.
 
 %prep
 %setup -q -n %{name}_c-%{version}
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 CFLAGS="%{rpmcflags}" \
